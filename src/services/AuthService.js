@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const jwt = require('jsonwebtoken');
 const UserDao = require('../dao/UserDao');
 const bcrypt = require('bcrypt');
+const config = require('../config/config');
 const {returnError, returnSuccess} = require('../helper/responseHandler');
 
 class AuthService {
@@ -46,10 +47,9 @@ class AuthService {
 					return returnError(httpStatus.BAD_REQUEST, 'Invalid Login');
 				}
 
-				const token = jwt.sign({id: user.id}, '12345');
+				const token = jwt.sign({id: user.id}, config.jwt.secret);
 
 				return returnSuccess(httpStatus.OK, 'Login', {token})
-
 
 			}
 		} catch (e) {
