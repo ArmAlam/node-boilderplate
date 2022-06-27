@@ -6,8 +6,6 @@ const router = express.Router();
 
 const userController = new UserController();
 router.get('/', userController.getAllUsers);
-router.post('/test', auth, (req, res) => {
-	res.send('hello from protected');
-});
+router.post('/test', auth, userController.protectedCallTest);
 
 module.exports = router;

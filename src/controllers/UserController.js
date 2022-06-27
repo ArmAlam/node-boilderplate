@@ -13,7 +13,16 @@ class UserController {
 			res.status(httpStatus.OK).send(result.response);
 		} catch (e) {
 			console.log(e);
-			res.status(httpStatus.BAD_REQUEST).send({message: 'somethign went wrong', status: false})
+			res.status(httpStatus.BAD_REQUEST).send({message: 'something went wrong', status: false})
+		}
+	}
+
+	protectedCallTest = async (req, res) => {
+		try {
+			res.status(httpStatus.OK).send({message: 'Hello from protected route'});
+		} catch (e) {
+			console.log(e);
+			res.status(httpStatus.BAD_REQUEST).send({message: 'something went wrong', status: false})
 		}
 	}
 }

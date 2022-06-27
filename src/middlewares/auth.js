@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const httpStatus = require('http-status');
+const config = require('../config/config');
 
 
 const auth = (req, res, next) => {
@@ -12,14 +13,7 @@ const auth = (req, res, next) => {
 			token = token.slice(7, token.length).trim();
 			console.log(token)
 		}
-		const verified = jwt.verify(token, '12345');
-
-
-		console.log('-------------------------')
-		console.log(verified)
-		console.log('-------------------------')
-
-
+		const verified = jwt.verify(token, config.jwt.secret);
 
 		if( verified) {
 			return next();
@@ -27,9 +21,6 @@ const auth = (req, res, next) => {
 		res.status(httpStatus.BAD_REQUEST).send({status: false, message: 'Unauthorized'});
 	}
 	catch (err) {
-		console.log('err----------------------------------')
-		console.log(err.message)
-		console.log('err----------------------------------')
 		res.status(400).send("Invalid Token");
 	}
 };
